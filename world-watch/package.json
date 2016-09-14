@@ -1,0 +1,11 @@
+{
+  "name": "world-clock",
+  "version": "0.0.1",
+  "description": "A buggy world clock app",
+  "author": "N.Shimizu",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0"
+  }
+}
