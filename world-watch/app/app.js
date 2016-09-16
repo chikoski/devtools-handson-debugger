@@ -1,37 +1,35 @@
 const timezone = {
-  "東京": 9 * 3600 * 1000,
-  "デリー": 5.5 * 3600 * 1000,
-  "モスクワ": 3 * 3600 * 1000,
-  "ベルリン": 1 * 3600 * 1000, 
-  "パリ": 1 * 3600 * 1000, 
-  "ロンドン": 0 * 3600 * 1000,
-  "ニューヨーク": -5 * 3600 * 1000,
-  "ハワイ": -10 * 3600 * 1000,
+  "東京": 9, 
+  "デリー": 5.5,
+  "モスクワ": 3,
+  "ベルリン": 1, 
+  "パリ": 1, 
+  "ロンドン": 0,
+  "ニューヨーク": -5,
+  "ハワイ": -10,
 };
 let el = {};
-let city;
+let city = "東京";
 let timer;
 
 function setCity(name){
   city = name;
-  console.log(`changed the city to ${city}`);
-  el.city.textContent = city;
+  el = el.city;
+  el.textContent = city;
 }
 
 function format(value){
-  return value > 9 ? value + "" : "0" + value; 
-}
-
-function nowAt(city){
-  const now = new Date();
-  const localOffset = now.getTimezoneOffset() * 60 * 1000;
-  const offset = timezone[city];
-  return new Date(now.getTime() + localOffset + offset);
+  value = "" + value;
+  if(value.length < 2){
+    value = "0" + value;
+  }
+  return value.substr(-2);
 }
 
 function update(){
-  const now = nowAt(city);
-  el.hour.textContent = format(now.getHours());
+  const now = new Date();
+  const offset = timezone[city];
+  el.hour.textContent = format(now.getHours() - 9 + offset);
   el.min.textContent = format(now.getMinutes());
   el.sec.textContent = format(now.getSeconds());
 }
@@ -56,7 +54,11 @@ function createHandler(li){
 function initializeHandlers(){
   const cities = el.cityList;
   for(let i of cities){
-    i.addEventListener("click", createHandler(i));
+    i.addEventListener("click", e => {
+      const city = i.textContent;
+      setCity(city);
+      update
+    });
   }
 }
 
@@ -71,11 +73,11 @@ function loadElements(){
 function initializeViews(){
   loadElements();
   initializeHandlers();
+  el.city.textContent = city;
 }
 
 window.addEventListener("load", e => {
   initializeViews();
-  setCity("東京");
   startClock();  
 })
 
