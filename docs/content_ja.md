@@ -68,7 +68,13 @@ Mozilla Japan
     * ブレークポイントの設置
     * コードのステップ実行
     * 変数の調査、編集、ウォッチ
-* 詳しい解説は [MDN のページ](https://developer.mozilla.org/ja/docs/Tools/Debugger)をご覧くださいs
+* 詳しい解説は [MDN のページ](https://developer.mozilla.org/docs/Tools/Debugger)をご覧くださいs
+
+---
+
+![世界時計アプリ](img/target.png)
+
+[こちらを開いてください](world-clock/index.html)
 
 ---
 
@@ -246,6 +252,46 @@ Mozilla Japan
 * [Gulp](http://gulpjs.com/) が使えれば、ローカルでサーバが立てられます。
 * 上記のコマンドで [localhost:8888](http:localhost:8888/) でサーバーが動きます
 
+---
+
+## 予備知識：JavaScript での日付の扱い
+
+~~~javascript
+console.log(Date.now()); // 現在時刻の取得
+~~~
+
+* JavaScript での日付は [Date オブジェクト](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date)で扱います
+* 1970 年 1 月 1 日 00:00:00(UTC) からの経過時間（ミリ秒）で、日付を表現します
+  * [UTC：協約世界時](https://ja.wikipedia.org/wiki/%E5%8D%94%E5%AE%9A%E4%B8%96%E7%95%8C%E6%99%82)
+  * [Date.now()](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date/now)
+  * ミリ秒：1000 分の 1 秒
+
+----
+
+### 予備知識：時差
+
+~~~javascript
+console.log(Date.getTimezoneOffset());
+~~~
+
+* 時差は、UTC からのズレとして表現されます
+* [Date.prototype.getTimezoneOffset()](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset) で、
+UTC からのズレを分単位で取得できます
+
+----
+
+### 予備知識：時、分、秒の取得
+
+~~~javascript
+let now = new Date(); // 現在時刻の取得
+let timeString = `${now.getHourse()}:${now.getMinutes()}:${now.getSeconds()}`;
+// 現在時刻を 時:分:秒 で表した文字列の作成 
+console.log(timeString);
+~~~
+
+* そのタイムゾーンでの[時](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getHours)、[分](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getMinutes)、[秒](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getSeconds)を取得できます
+* [年](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getFullYear)、[月](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth)、[日](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate)、[曜日](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDay)なども同様に取得できます
+
 ----
 
 ### シナリオ：都市を変えると、時計が止まる
@@ -254,15 +300,6 @@ Mozilla Japan
 
 * 都市をクリックすると、時計がとまります
 * これを修正してください
-
-----
-
-### シナリオ：都市が正しく変わらない
-
-![どの都市をクリックしても、ハワイになります](img/handler.png)
-
-* 都市をクリックすると、必ず「ハワイ」の時間が表示されます 
-* これを修正してください 
 
 ----
 

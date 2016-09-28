@@ -1,13 +1,14 @@
 // UTCからの時差の表
 const timezone = {
-  "東京": 9, 
-  "デリー": 5.5,
-  "モスクワ": 3,
-  "ベルリン": 1, 
-  "パリ": 1, 
+  "東京": 32400000, 
+  "デリー": 19800000,
+  "モスクワ": 10800000,
+  "ベルリン": 3600000, 
+  "パリ": 3600000, 
   "ロンドン": 0,
-  "ニューヨーク": -5,
-  "ハワイ": -10,
+  "ニューヨーク": -18000000,
+  "ロスアンゼルス": -25200000,
+  "ハワイ": -36000000,
 };
 // ビュー用の要素をキャッシュするための表
 let el = {};
@@ -29,28 +30,24 @@ let timer;
 // 表示する都市を変更する関数
 function setCity(name){
   city = name;
-  el = el.city;
-  el.textContent = city;
+  el.city.textContent = city;
 }
 
 // 二桁の数字を文字列に変換する関数
 // 一桁の場合は、09 のように 0 を補って返す
-function format(value){
-  value = "" + value;
-  if(value.length < 2){
-    value = "0" + value;
-  }
-  return value.substr(-2);
+function format(value){ 
+  return (value < 10 ? "0" : "") + value;
 }
 
 // 時刻の表示を更新する関数
 function update(){
   try{
     const now = new Date();
-    const offset = timezone[city];
-    el.hour.textContent = format(now.getHours() - 9 + offset);
-    el.min.textContent = format(now.getMinutes());
-    el.sec.textContent = format(now.getSeconds());
+    const offset = timezone[city] + now.getTimezoneOffset() * 60000;
+    const toShow = new Date(now.getTime() + offset); 
+    el.hour.textContent = format(toShow.getHours());
+    el.min.textContent = format(toShow.getMinutes());
+    el.sec.textContent = format(toShow.getSeconds());
   }catch(e){
     stopClock();
     throw e;
@@ -99,7 +96,7 @@ function loadElements(){
 function initializeViews(){
   loadElements();
   initializeHandlers();
-  el.city.textContent = city;
+  setCity(city); 
 }
 
 // ページロード時のハンドラ
