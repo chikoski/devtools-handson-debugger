@@ -292,7 +292,7 @@ console.log(timeString);
 * そのタイムゾーンでの[時](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getHours)、[分](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getMinutes)、[秒](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getSeconds)を取得できます
 * [年](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getFullYear)、[月](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth)、[日](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate)、[曜日](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDay)なども同様に取得できます
 
-----
+---
 
 ### シナリオ：都市を変えると、時計が止まる
 
